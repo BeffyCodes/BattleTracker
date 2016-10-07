@@ -1,0 +1,13 @@
+{
+  "name": "battletracker",
+  "private": true,
+  "dependencies": {
+    "modernizr": "~2.8.1",
+    "angular": "^1.5.8",
+    "angular-material": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0"
+  }
+}
