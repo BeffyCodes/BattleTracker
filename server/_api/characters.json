@@ -1,0 +1,12 @@
+{
+    "Gavino": {
+        "name": "Gavino",
+        "class": "ranger",
+        "hp": 45
+    },
+    "Parse": {
+        "name": "Parse",
+        "class": "fighter",
+        "hp": 55
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "goblin": {
+        "type": "Humanoid",
+        "hp": 45
+    },
+    "ghost": {
+        "type": "Spectral",
+        "hp": 55
+    }
+}

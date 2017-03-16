@@ -1,0 +1,23 @@
+{
+  "name": "battletracker",
+  "version": "1.0.0",
+  "description": "DnD thing",
+  "main": "battletracker.js",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jward1990/BattleTracker.git"
+  },
+  "author": "Jesse Ward",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jward1990/BattleTracker/issues"
+  },
+  "homepage": "https://github.com/jward1990/BattleTracker#readme"
+}
