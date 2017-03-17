@@ -22,7 +22,7 @@ router.get('/characters/:name', function(req, res) {
         if (character) {
             res.type('json').send(character);
         } else {
-            res.status(404).type('json').end();
+            res.sendStatus(404);
         }
     });
 });
@@ -36,7 +36,7 @@ router.get('/monsters/:type', function(req, res) {
         if (monster) {
             res.type('json').send(monster);
         } else {
-            res.status(404).type('json').end();
+            res.sendStatus(404);
         }
     });
 });
