@@ -16,7 +16,5 @@ requirejs.config({
     }
 });
 
-require(["battleTracker"], function (battleTracker) {
-    
-});
+require(["battleTracker"]);
 
