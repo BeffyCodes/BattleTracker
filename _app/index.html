@@ -1,1 +1,16 @@
-<script data-main="js/main/main.js" src="js/lib/requirejs/require.js"></script>
+<!doctype html>
+<html ng-app="battleTracker">
+    <head>
+        <title>Battle Tracker</title>
+    </head>
+
+    <body ng-controller="MainCtrl">
+        <h1>{{test}}</h1>
+        <h3>Entities</h3>
+        <ul>
+            <li><a href="entities/campaigns.html">Campaigns</a></li>
+            <li><a href="entities/characters.html">Characters</a></li>
+        </ul>
+        <script data-main="scripts/requireConfig.js" src="scripts/vendor/requirejs/require.js"></script>
+    </body>
+</html>
