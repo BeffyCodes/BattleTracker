@@ -1,9 +1,9 @@
 define(['./services'], function (servicesModule) {
     servicesModule.service("DataAccessService", ['$http', '$q', function($http, $q) {
-    	this.get = function (url) {
+    	this.get = function (url, id) {
     		var deferred = $q.defer();
 
-    		$http.get('/_api/' + url)
+    		$http.get('/_api/' + url + (id ? "/" + id : ""))
     		.then(function success(response) {
     			deferred.resolve(response.data);
     		},

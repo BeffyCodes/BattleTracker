@@ -1,0 +1,42 @@
+<h1>{{vm.id ? "Edit" : "New" }} Campaign</h1>
+
+<form name="campaign" ng-submit="vm.saveCampaign()">
+	<p>
+		Campaign Name: <input type="text" ng-model="vm.name" required />
+	</p>
+	<p>
+		DM: <input type="text" ng-model="vm.dm" required />
+	</p>
+	<p>
+		Edition:
+		<select ng-model="vm.edition" required>
+			<option value="5">5e</option>
+			<option value="4">4e</option>
+		</select>
+	</p>
+	<p>
+		Characters:
+	</p>
+	<div>
+		<table>
+			<tbody>
+				<tr>
+					<td>
+						<select ng-model="vm.charactersToSelect" ng-options="character.name for character in vm.possibleCharacters | orderBy: 'name'" multiple>
+						</select>
+					</td>
+					<td>
+						<input type="button" value="-->" ng-click="vm.selectCharacters()" />
+						<br/>
+						<input type="button" value="<--" ng-click="vm.removeCharacters()" />
+					</td>
+					<td>
+						<select ng-model="vm.charactersToRemove" ng-options="character.name for character in vm.characters | orderBy: 'name'" multiple>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<button type="submit">Save Campaign</button> <button type="button" ui-sref="campaigns">Cancel</button>
+</form>

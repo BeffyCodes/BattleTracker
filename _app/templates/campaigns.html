@@ -2,9 +2,11 @@
 <h3>Campaigns</h3>
 <ul ng-show="vm.allCampaigns.length">
 	<li ng-repeat="campaign in vm.allCampaigns | orderBy: 'name' track by campaign._id">
-		<a>{{campaign.name}}</a> <input type="button" value="Delete" ng-click="vm.delete(campaign._id)" />
+		<a ui-sref="campaignForm({id: '{{campaign._id}}'})">{{campaign.name}}</a> <input type="button" value="Delete" ng-click="vm.delete(campaign._id)" />
 		<ul>
-			{{campaign.dm}}
+			<li>{{campaign.dm}}</li>
 		</ul>	
 	</li>
 </ul>
+<input type="button" value="Create New Campaign" ui-sref="campaignForm({id: null})" />
+<div ui-view></div>

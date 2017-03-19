@@ -10,6 +10,11 @@ define(['./battleTracker'], function(battleTracker) {
             templateUrl: 'templates/campaigns.html',
             controller:'CampaignsCtrl',
             controllerAs: 'vm'
+        }).state('campaignForm', {
+            url: '/campaigns/:id',
+            templateUrl: 'templates/campaignForm.html',
+            controller:'CampaignFormCtrl',
+            controllerAs: 'vm'
         }).state('characters', {
             url: '/characters',
             templateUrl: 'templates/characters.html',
