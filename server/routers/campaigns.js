@@ -43,11 +43,11 @@ campaignRouter.post('/', function (req, res) {
 
 // Edit existing campaign
 campaignRouter.put('/:campaignId', function (req, res) {
-    Campaign.findById(req.params.campaignId, function (findErr, campaign) {
+    Campaign.findById(req.body._id, function (findErr, campaign) {
         if (findErr) {
             res.status(500).send(findErr);
         } else {
-            Object.keys(campaign).forEach(function(key) {
+            Object.keys(campaign._doc).forEach(function(key) {
                 if (key !== "_id" && key !== "__v" && campaign[key]) {
                     campaign[key] = req.body[key];
                 }
@@ -55,24 +55,6 @@ campaignRouter.put('/:campaignId', function (req, res) {
 
             campaign.save(function (saveErr) {
                 saveErr ? res.status(500).send(saveErr) : res.json({ message: 'Campaign updated' });
-            });
-        }
-    });
-});
-
-
-// Add characters to campaign
-campaignRouter.put('/addCharacters', function (req, res) {
-    var campaignId = req.body.campaignId;
-    var characters = req.body.characters;
-
-    Campaign.findById(campaignId, function (findErr, campaign) {
-        if (findErr) {
-            res.status(500).send(findErr);
-        } else {
-            campaign.characters.push.apply(campaign.characters, characters);
-            campaign.save(function (saveErr) {
-                saveErr ? res.status(500).send(err) : res.json({ message: 'Characters added!' });
             });
         }
     });

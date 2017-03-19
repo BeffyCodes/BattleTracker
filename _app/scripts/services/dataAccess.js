@@ -1,6 +1,6 @@
 define(['./services'], function (servicesModule) {
     servicesModule.service("DataAccessService", ['$http', '$q', function($http, $q) {
-    	this.get = function (url, id) {
+    	this.get = function(url, id) {
     		var deferred = $q.defer();
 
     		$http.get('/_api/' + url + (id ? "/" + id : ""))
@@ -14,7 +14,7 @@ define(['./services'], function (servicesModule) {
     		return deferred.promise;
     	};
 
-    	this.post = function (url, item) {
+    	this.post = function(url, item) {
     		var deferred = $q.defer();
 
     		$http.post('/_api/' + url, item)
@@ -27,6 +27,31 @@ define(['./services'], function (servicesModule) {
 
     		return deferred.promise;
     	};
+
+        this.put = function(url, item) {
+            var deferred =  $q.defer();
+
+            $http({
+                method: "PUT",
+                data: item,
+                url: '/_api/' + url + '/' + item._id
+            }).then(function success(response) {
+                deferred.resolve(response.data);
+            },
+            function failure(response) {
+                deferred.reject(response.data);
+            });
+
+            /*$http.put('/_api/' + url + '/' + item._id, item)
+            .then(function success(response) {
+                deferred.resolve(response.data);
+            },
+            function failure(response) {
+                deferred.reject(response.data);
+            });*/
+
+            return deferred.promise;
+        };
 
     	this.delete = function(url, id) {
     		var deferred = $q.defer();

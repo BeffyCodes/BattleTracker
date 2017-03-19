@@ -58,7 +58,15 @@ define(['./controllers'], function (controllersModule) {
             };
 
             if (vm.id) {
-                // todo: add put
+                campaign._id = vm.id;
+                dataAccess.put("campaigns", campaign)
+                .then(function(response){
+                    console.log(response);
+                    $state.go("campaigns");
+                },
+                function(err){
+                    console.log(err);
+                });
             } else {
                 dataAccess.post("campaigns", campaign).then(
                     function(response) {
