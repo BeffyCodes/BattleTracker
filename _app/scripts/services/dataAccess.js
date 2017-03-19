@@ -6,24 +6,40 @@ define(['./services'], function (servicesModule) {
     		$http.get('/_api/' + url)
     		.then(function success(response) {
     			deferred.resolve(response.data);
-
     		},
 				function failure(response) {
-					deferred.reject(response.data)
-
+					deferred.reject(response.data);
 			});
 
     		return deferred.promise;
     	};
 
     	this.post = function (url, item) {
+    		var deferred = $q.defer();
+
     		$http.post('/_api/' + url, item)
     		.then(function success(response) {
-
+    			deferred.resolve(response.data);
     		},
     		function failure(response) {
-    			
+    			deferred.reject(response.data);
     		});
-    	}
+
+    		return deferred.promise;
+    	};
+
+    	this.delete = function(url, id) {
+    		var deferred = $q.defer();
+
+    		$http.delete('/_api/' + url + '/' + id)
+    		.then(function success(response) {
+    			deferred.resolve(response.data);
+    		},
+    		function failure(response) {
+    			deferred.reject(response.data);
+    		});
+
+    		return deferred.promise;
+    	};
     }]);
 });

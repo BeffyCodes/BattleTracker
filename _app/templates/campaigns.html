@@ -1,1 +1,10 @@
-<div>Campaigns</div>
+<a ui-sref="home">&lt;-- Home</a>
+<h3>Campaigns</h3>
+<ul ng-show="vm.allCampaigns.length">
+	<li ng-repeat="campaign in vm.allCampaigns | orderBy: 'name' track by campaign._id">
+		<a>{{campaign.name}}</a> <input type="button" value="Delete" ng-click="vm.delete(campaign._id)" />
+		<ul>
+			{{campaign.dm}}
+		</ul>	
+	</li>
+</ul>

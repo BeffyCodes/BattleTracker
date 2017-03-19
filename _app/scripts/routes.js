@@ -3,11 +3,13 @@ define(['./battleTracker'], function(battleTracker) {
         $stateProvider.state('home', {
             url: '',
             templateUrl: 'templates/home.html',
-            controller:'MainCtrl'
+            controller:'MainCtrl',
+            controllerAs: 'vm'
         }).state('campaigns', {
             url: '/campaigns',
             templateUrl: 'templates/campaigns.html',
-            controller:'CampaignsCtrl'
+            controller:'CampaignsCtrl',
+            controllerAs: 'vm'
         }).state('characters', {
             url: '/characters',
             templateUrl: 'templates/characters.html',
