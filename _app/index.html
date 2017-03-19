@@ -1,16 +1,10 @@
 <!doctype html>
-<html ng-app="battleTracker">
+<html>
     <head>
         <title>Battle Tracker</title>
     </head>
-
-    <body ng-controller="MainCtrl">
-        <h1>Battle Tracker</h1>
-        <h3>Entities</h3>
-        <ul>
-            <li><a href="entities/campaigns.html">Campaigns</a></li>
-            <li><a href="entities/characters.html">Characters</a></li>
-        </ul>
+    <body>
+        <div ui-view></div>
         <script data-main="scripts/requireConfig.js" src="scripts/vendor/requirejs/require.js"></script>
     </body>
 </html>

@@ -1,4 +1,5 @@
-define(['angular'], function (angular) {
-    return function ($scope) {
-    };
+define(['./controllers'], function (controllersModule) {
+    controllersModule.controller("MainCtrl", ['$scope', function($scope) {
+    	$scope.title = "lol"
+    }]);
 });

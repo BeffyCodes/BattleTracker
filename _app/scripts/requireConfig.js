@@ -9,12 +9,16 @@ requirejs.config({
         "filters": "filters",
         "services": "services",
         "vendor": "vendor",
-        "angular": "vendor/angular/angular"
+        "angular": "vendor/angular/angular",
+        "uiRouter": "vendor/angular/angular-ui-router"
     },
     shim: {
-        'angular': { 'exports': 'angular'}
-    }
+        'angular': { 'exports': 'angular'},
+        'uiRouter':{
+            deps: ['angular']
+        }
+    },
+    deps: [
+        './bootstrap'
+    ]
 });
-
-require(["battleTracker"]);
-

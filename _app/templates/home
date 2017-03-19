@@ -1,0 +1,6 @@
+<h1>{{title}}</h1>
+	<h3>Entities</h3>
+	<ul>
+	    <li><a ui-sref="campaigns">Campaigns</a></li>
+	    <li><a ui-sref="characters">Characters</a></li>
+	</ul>
