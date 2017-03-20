@@ -10,12 +10,24 @@ requirejs.config({
         "services": "services",
         "vendor": "vendor",
         "angular": "vendor/angular/angular",
-        "uiRouter": "vendor/angular/angular-ui-router"
+        "uiRouter": "vendor/angular/angular-ui-router",
+        "ngMaterial": "vendor/angular/angular-material/angular-material",
+        "ngAria": "vendor/angular/angular-aria/angular-aria",
+        "ngAnimate": "vendor/angular/angular-animate/angular-animate"
     },
     shim: {
         'angular': { 'exports': 'angular'},
         'uiRouter':{
             deps: ['angular']
+        },
+        'ngAnimate': {
+            deps: ['angular']
+        },
+        'ngAria': {
+            deps: ['angular']
+        },
+        'ngMaterial': {
+            deps:['angular', 'ngAria', 'ngAnimate']
         }
     },
     deps: [
