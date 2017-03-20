@@ -12,7 +12,9 @@ define(['./controllers'], function (controllersModule) {
         };
         vm.charactersToSelect = [];
         vm.charactersToRemove = [];
-        vm.possibleCharacters = allCharacters;
+        var fifthEditionCharacters = allCharacters.filter(function (char) { return char.edition === 5 });
+        var fourthEditionCharacters = allCharacters.filter(function (char) { return char.edition === 4 });
+        vm.possibleCharacters = fifthEditionCharacters;
 
 
     	// Functions
@@ -55,10 +57,16 @@ define(['./controllers'], function (controllersModule) {
             }
         };
 
+        vm.editionChange = function () {
+            vm.possibleCharacters = vm.campaign.edition == "4" ? fourthEditionCharacters : fifthEditionCharacters;
+            vm.campaign.characters = [];
+        };
+
         if ($stateParams.id) {
             dataAccess.get("campaigns", $stateParams.id)
             .then(function(campaign) {
                 vm.campaign = campaign;
+                if (vm.campaign.edition === 4) vm.possibleCharacters = fourthEditionCharacters;
                 vm.campaign.characters.forEach(function(currChar) {
                     vm.possibleCharacters = vm.possibleCharacters.filter(function (char) {
                         return char._id != currChar._id;

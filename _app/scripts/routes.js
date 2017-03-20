@@ -40,6 +40,11 @@ define(['./battleTracker'], function(battleTracker) {
             templateUrl: 'templates/monsterForm.html',
             controller:'MonsterFormCtrl',
             controllerAs: 'vm'
+        }).state('tracker', {
+            url: '/tracker',
+            templateUrl: 'templates/tracker.html',
+            controller:'TrackerCtrl',
+            controllerAs: 'vm'
         });
 
         $urlRouterProvider.otherwise('/');

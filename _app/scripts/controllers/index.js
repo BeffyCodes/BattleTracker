@@ -5,5 +5,6 @@ define([
     './characters',
     './characterForm',
     './monsters',
-    './monsterForm'
+    './monsterForm',
+    './tracker'
 ], function () {});
