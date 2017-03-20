@@ -1,7 +1,7 @@
 define(['./battleTracker'], function(battleTracker) {
-    return battleTracker.config(function($stateProvider) {
+    return battleTracker.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('home', {
-            url: '',
+            url: '/',
             templateUrl: 'templates/home.html',
             controller:'MainCtrl',
             controllerAs: 'vm'
@@ -14,11 +14,34 @@ define(['./battleTracker'], function(battleTracker) {
             url: '/campaigns/:id',
             templateUrl: 'templates/campaignForm.html',
             controller:'CampaignFormCtrl',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve: {
+                allCharacters: ["DataAccessService", function(dataAccess) {
+                    return dataAccess.get("characters");
+                }]
+            }
         }).state('characters', {
             url: '/characters',
             templateUrl: 'templates/characters.html',
-            controller:'CharactersCtrl'
+            controller:'CharactersCtrl',
+            controllerAs: 'vm'
+        }).state('characterForm', {
+            url: '/characters/:id',
+            templateUrl: 'templates/characterForm.html',
+            controller:'CharacterFormCtrl',
+            controllerAs: 'vm'
+        }).state('monsters', {
+            url: '/monsters',
+            templateUrl: 'templates/monsters.html',
+            controller:'MonstersCtrl',
+            controllerAs: 'vm'
+        }).state('monsterForm', {
+            url: '/monsters/:id',
+            templateUrl: 'templates/monsterForm.html',
+            controller:'MonsterFormCtrl',
+            controllerAs: 'vm'
         });
-    });
+
+        $urlRouterProvider.otherwise('/');
+    }]);
 });

@@ -1,0 +1,64 @@
+<h1>{{vm.character._id ? "Edit" : "New" }} Character</h1>
+
+<form name="character" ng-submit="vm.saveCharacter()">
+	<p>
+		Character Name: <input type="text" ng-model="vm.character.name" required />
+	</p>
+	<p>
+		Player Name: <input type="text" ng-model="vm.character.playerName" required />
+	</p>
+	<p>
+		Race: <input type="text" ng-model="vm.character.race" required />
+	</p>
+	<p>
+		Class: <input type="text" ng-model="vm.character.class" required />
+	</p>
+	<p>
+		HP: <input type="number" size="2" ng-model="vm.character.hp" required />
+	</p>
+	<p>
+		Edition:
+		<select ng-model="vm.character.edition" required>
+			<option value="5">5e</option>
+			<option value="4">4e</option>
+		</select>
+	</p>
+	<p>
+		Attributes:
+	</p>
+	<div>
+		<table>
+			<thead>
+				<th>Strength</th>
+				<th>Constitution</th>
+				<th>Dexterity</th>
+				<th>Intelligence</th>
+				<th>Wisdom</th>
+				<th>Charisma</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.character.attributes.str" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.character.attributes.con" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.character.attributes.dex" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.character.attributes.int" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.character.attributes.wis" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.character.attributes.cha" required />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<button type="submit">Save Character</button> <button type="button" ui-sref="characters">Cancel</button>
+</form>

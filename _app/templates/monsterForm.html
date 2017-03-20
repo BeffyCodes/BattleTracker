@@ -1,0 +1,58 @@
+<h1>{{vm.monster._id ? "Edit" : "New" }} Monster</h1>
+
+<form name="monster" ng-submit="vm.saveMonster()">
+	<p>
+		Monster Name: <input type="text" ng-model="vm.monster.name" required />
+	</p>
+	<p>
+		AC: <input type="number" ng-model="vm.monster.ac" required />
+	</p>
+	<p>
+		HP: <input type="number" size="2" ng-model="vm.monster.hp" required />
+	</p>
+	<p>
+		Edition:
+		<select ng-model="vm.monster.edition" required>
+			<option value="5">5e</option>
+			<option value="4">4e</option>
+		</select>
+	</p>
+	<p>
+		Attributes:
+	</p>
+	<div>
+		<table>
+			<thead>
+				<th>Strength</th>
+				<th>Constitution</th>
+				<th>Dexterity</th>
+				<th>Intelligence</th>
+				<th>Wisdom</th>
+				<th>Charisma</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.monster.attributes.str" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.monster.attributes.con" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.monster.attributes.dex" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.monster.attributes.int" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.monster.attributes.wis" required />
+					</td>
+					<td>
+						<input type="number" size="2" min="0" max="20" ng-model="vm.monster.attributes.cha" required />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<button type="submit">Save Monster</button> <button type="button" ui-sref="monsters">Cancel</button>
+</form>

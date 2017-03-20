@@ -1,41 +1,25 @@
 define(['./controllers'], function (controllersModule) {
-    controllersModule.controller("CampaignFormCtrl", ['DataAccessService', '$state', '$stateParams', function(dataAccess, $state, $stateParams) {
+    controllersModule.controller("CampaignFormCtrl", ['DataAccessService', '$state', '$stateParams', 'allCharacters', function(dataAccess, $state, $stateParams, allCharacters) {
     	var vm = this;
 
     	// Variables
 
-        vm.id = "";
-        vm.name = "";
-        vm.dm = "";
-        vm.edition = "5";
-        vm.characters = [];
+        vm.campaign = {
+            name: "",
+            dm: "",
+            edition: "5",
+            characters: []
+        };
         vm.charactersToSelect = [];
         vm.charactersToRemove = [];
+        vm.possibleCharacters = allCharacters;
 
-        vm.possibleCharacters = [
-            {
-                name: "Parse",
-                id: 25
-            },
-            {
-                name: "Gavino",
-                id: 12
-            },
-            {
-                name: "Shun",
-                id: 47
-            },
-            {
-                name: "Perren",
-                id: 33
-            }
-        ];
 
     	// Functions
 
         vm.selectCharacters = function() {
             vm.charactersToSelect.forEach(function(currChar) {
-                vm.characters.push(currChar);
+                vm.campaign.characters.push(currChar);
                 var index = vm.possibleCharacters.indexOf(currChar);
                 vm.possibleCharacters.splice(index, 1);
             });
@@ -44,22 +28,14 @@ define(['./controllers'], function (controllersModule) {
         vm.removeCharacters = function() {
             vm.charactersToRemove.forEach(function(currChar) {
                 vm.possibleCharacters.push(currChar);
-                var index = vm.characters.indexOf(currChar);
-                vm.characters.splice(index, 1);
+                var index = vm.campaign.characters.indexOf(currChar);
+                vm.campaign.characters.splice(index, 1);
             });
         };
 
         vm.saveCampaign = function() {
-            var campaign = {
-                name: vm.name,
-                dm: vm.dm,
-                edition: vm.edition,
-                characters: vm.characters
-            };
-
-            if (vm.id) {
-                campaign._id = vm.id;
-                dataAccess.put("campaigns", campaign)
+            if (vm.campaign._id) {
+                dataAccess.put("campaigns", vm.campaign)
                 .then(function(response){
                     console.log(response);
                     $state.go("campaigns");
@@ -68,7 +44,7 @@ define(['./controllers'], function (controllersModule) {
                     console.log(err);
                 });
             } else {
-                dataAccess.post("campaigns", campaign).then(
+                dataAccess.post("campaigns", vm.campaign).then(
                     function(response) {
                         console.log(response);
                         $state.go("campaigns");
@@ -80,13 +56,14 @@ define(['./controllers'], function (controllersModule) {
         };
 
         if ($stateParams.id) {
-            vm.id = $stateParams.id
-            dataAccess.get("campaigns", vm.id)
+            dataAccess.get("campaigns", $stateParams.id)
             .then(function(campaign) {
-                vm.name = campaign.name;
-                vm.dm = campaign.dm;
-                vm.edition = campaign.edition;
-                vm.characters = campaign.characters;
+                vm.campaign = campaign;
+                vm.campaign.characters.forEach(function(currChar) {
+                    vm.possibleCharacters = vm.possibleCharacters.filter(function (char) {
+                        return char._id != currChar._id;
+                    });
+                });
             },
             function(err) {
                 console.log(err);

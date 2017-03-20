@@ -1,15 +1,15 @@
-<h1>{{vm.id ? "Edit" : "New" }} Campaign</h1>
+<h1>{{vm.campaign._id ? "Edit" : "New" }} Campaign</h1>
 
 <form name="campaign" ng-submit="vm.saveCampaign()">
 	<p>
-		Campaign Name: <input type="text" ng-model="vm.name" required />
+		Campaign Name: <input type="text" ng-model="vm.campaign.name" required />
 	</p>
 	<p>
-		DM: <input type="text" ng-model="vm.dm" required />
+		DM: <input type="text" ng-model="vm.campaign.dm" required />
 	</p>
 	<p>
 		Edition:
-		<select ng-model="vm.edition" required>
+		<select ng-model="vm.campaign.edition" required>
 			<option value="5">5e</option>
 			<option value="4">4e</option>
 		</select>
@@ -31,7 +31,7 @@
 						<input type="button" value="<--" ng-click="vm.removeCharacters()" />
 					</td>
 					<td>
-						<select ng-model="vm.charactersToRemove" ng-options="character.name for character in vm.characters | orderBy: 'name'" multiple>
+						<select ng-model="vm.charactersToRemove" ng-options="character.name for character in vm.campaign.characters | orderBy: 'name'" multiple>
 						</select>
 					</td>
 				</tr>

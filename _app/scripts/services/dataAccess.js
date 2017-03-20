@@ -31,24 +31,13 @@ define(['./services'], function (servicesModule) {
         this.put = function(url, item) {
             var deferred =  $q.defer();
 
-            $http({
-                method: "PUT",
-                data: item,
-                url: '/_api/' + url + '/' + item._id
-            }).then(function success(response) {
-                deferred.resolve(response.data);
-            },
-            function failure(response) {
-                deferred.reject(response.data);
-            });
-
-            /*$http.put('/_api/' + url + '/' + item._id, item)
+            $http.put('/_api/' + url + '/' + item._id, item)
             .then(function success(response) {
                 deferred.resolve(response.data);
             },
             function failure(response) {
                 deferred.reject(response.data);
-            });*/
+            });
 
             return deferred.promise;
         };

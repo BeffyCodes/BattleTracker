@@ -2,5 +2,8 @@ define([
     './main',
     './campaigns',
     './campaignForm',
-    './characters'
+    './characters',
+    './characterForm',
+    './monsters',
+    './monsterForm'
 ], function () {});

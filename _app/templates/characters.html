@@ -1,1 +1,9 @@
-<div>Characters</div>
+<a ui-sref="home">&lt;-- Home</a>
+<h3>Characters</h3>
+<ul ng-show="vm.allCharacters.length">
+	<li ng-repeat="character in vm.allCharacters | orderBy: 'name' track by character._id">
+		<a ui-sref="characterForm({id: '{{character._id}}'})">{{character.name}}</a> <input type="button" value="Delete" ng-click="vm.delete(character._id)" />
+	</li>
+</ul>
+<input type="button" value="Create New Character" ui-sref="characterForm({id: null})" />
+<div ui-view></div>

@@ -1,0 +1,9 @@
+<a ui-sref="home">&lt;-- Home</a>
+<h3>Monsters</h3>
+<ul ng-show="vm.allMonsters.length">
+	<li ng-repeat="monster in vm.allMonsters | orderBy: 'name' track by monster._id">
+		<a ui-sref="monsterForm({id: '{{monster._id}}'})">{{monster.name}}</a> <input type="button" value="Delete" ng-click="vm.delete(monster._id)" />
+	</li>
+</ul>
+<input type="button" value="Create New Monster" ui-sref="monsterForm({id: null})" />
+<div ui-view></div>
