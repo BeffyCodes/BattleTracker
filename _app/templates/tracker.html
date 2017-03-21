@@ -8,11 +8,13 @@
 	</tbody>
 </table>-->
 
-<md-grid-list md-cols="{{vm.columns}}" md-row-height="1:.5" ng-show="vm.rows && vm.columns">
-	<md-grid-tile ng-repeat="cell in vm.battleMap" ng-style="{'background-color': cell.occupied ? 'white' : 'grey', 'border-color': 'black'}" ng-click="vm.cellSelected(cell)">
-	{{cell.occupied ? cell.resident.name : ""}}
-	</md-grid-tile>
-</md-grid-list>
+<div style="background-color: black">
+	<md-grid-list md-cols="{{vm.columns}}" md-row-height="1:.5" ng-show="vm.rows && vm.columns">
+		<md-grid-tile ng-repeat="cell in vm.battleMap" ng-style="{'background-color': cell.occupied ? 'grey' : 'white', 'border-color': 'black'}" ng-click="vm.cellSelected(cell)">
+		{{cell.occupied ? cell.resident.name : ""}}
+		</md-grid-tile>
+	</md-grid-list>
+</div>
 
 <input type="text" ng-model="vm.rows" />
 <input type="text" ng-model="vm.columns" />
