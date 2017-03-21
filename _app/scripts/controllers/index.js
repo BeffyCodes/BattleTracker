@@ -1,5 +1,5 @@
 define([
-    './main',
+    './home',
     './campaigns',
     './campaignForm',
     './characters',

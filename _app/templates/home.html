@@ -1,5 +1,10 @@
 <h3>Track Dat Battle</h3>
-<a ui-sref="tracker">Track It --&gt;</a>
+<select ng-model="vm.selectedCampaign">
+	<option ng-repeat="campaign in vm.allCampaigns" value="{{campaign._id}}">{{campaign.name}}</option>
+</select>
+<br />
+<br />
+<a ui-sref="tracker({ id: vm.selectedCampaign })">Battle It Up --&gt;</a>
 
 <h3>Settings</h3>
 <ul>

@@ -5,7 +5,7 @@ var MonsterSchema = new Schema({
     name: String,
     ac: Number,
     hp: Number,
-    edition: Number,
+    edition: String,
     attributes: {
     	str: Number,
     	con: Number,

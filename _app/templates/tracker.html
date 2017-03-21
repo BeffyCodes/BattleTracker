@@ -1,12 +1,18 @@
-<table id="trackerMap" ng-show="vm.battleMap.length">
+<!--<table id="trackerMap" ng-show="vm.battleMap.length">
 	<tbody>
 		<tr ng-repeat="row in vm.battleMap">
-			<td ng-repeat="column in row" ng-click="vm.cellSelected(column.x, column.y)">
-				({{column.x}}, {{column.y}})
+			<td ng-repeat="cell in row" ng-click="vm.cellSelected(cell.x, cell.y)">
+				({{cell.x}}, {{cell.y}})
 			</td>
 		</tr>
 	</tbody>
-</table>
+</table>-->
+
+<md-grid-list md-cols="{{vm.columns}}" md-row-height="1:.5" ng-show="vm.rows && vm.columns">
+	<md-grid-tile ng-repeat="cell in vm.battleMap" ng-style="{'background-color': cell.occupied ? 'white' : 'grey', 'border-color': 'black'}" ng-click="vm.cellSelected(cell)">
+	{{cell.occupied ? cell.resident.name : ""}}
+	</md-grid-tile>
+</md-grid-list>
 
 <input type="text" ng-model="vm.rows" />
 <input type="text" ng-model="vm.columns" />

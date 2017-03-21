@@ -7,7 +7,7 @@ var CharacterSchema = new Schema({
     race: String,
     class: String,
     hp: Number,
-    edition: Number,
+    edition: String,
     attributes: {
     	str: Number,
     	con: Number,

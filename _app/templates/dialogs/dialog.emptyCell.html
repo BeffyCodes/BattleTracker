@@ -1,0 +1,32 @@
+<md-dialog aria-label="Populate Empty Cell">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Populate Empty Cell</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h3>Pick a creature to put in this square</h3>
+        Character: <select ng-model="dialogVm.selectedCharacter" ng-options="character as character.name for character in dialogVm.characters | filter: dialogVm.filterCharacters | orderBy: 'name'" ng-change="dialogVm.dropdownChanged('Character')"></select>
+        -- OR --
+        Monster: <select ng-model="dialogVm.selectedMonster" ng-options="monster as monster.name for monster in dialogVm.monsters" ng-change="dialogVm.dropdownChanged('Monster')"></select>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="dialogVm.cancel()">
+       Cancel
+      </md-button>
+      <md-button ng-click="dialogVm.save()">
+        Save
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

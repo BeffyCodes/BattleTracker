@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var CampaignSchema = new Schema({
     name: String,
     dm: String,
-    edition: Number,
+    edition: String,
     characters: [{type: Schema.Types.ObjectId, ref: 'Character'}]
 });
 

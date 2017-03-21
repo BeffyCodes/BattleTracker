@@ -3,8 +3,13 @@ define(['./battleTracker'], function(battleTracker) {
         $stateProvider.state('home', {
             url: '/',
             templateUrl: 'templates/home.html',
-            controller:'MainCtrl',
-            controllerAs: 'vm'
+            controller:'HomeCtrl',
+            controllerAs: 'vm',
+            resolve: {
+                allCampaigns: ["DataAccessService", function(dataAccess) {
+                    return dataAccess.get("campaigns");
+                }]
+            }
         }).state('campaigns', {
             url: '/campaigns',
             templateUrl: 'templates/campaigns.html',
@@ -41,10 +46,18 @@ define(['./battleTracker'], function(battleTracker) {
             controller:'MonsterFormCtrl',
             controllerAs: 'vm'
         }).state('tracker', {
-            url: '/tracker',
+            url: '/tracker/:id',
             templateUrl: 'templates/tracker.html',
             controller:'TrackerCtrl',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve: {
+                campaign: ["DataAccessService", "$stateParams", function(dataAccess, $stateParams) {
+                    return dataAccess.get("campaigns", $stateParams.id);
+                }],
+                allMonsters: ["DataAccessService", function(dataAccess) {
+                    return dataAccess.get("monsters");
+                }]
+            }
         });
 
         $urlRouterProvider.otherwise('/');
