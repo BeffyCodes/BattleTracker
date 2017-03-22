@@ -13,8 +13,10 @@
     <md-dialog-content>
       <div class="md-dialog-content">
         <h3>Pick a creature to put in this square</h3>
-        Character: <select ng-model="dialogVm.selectedCharacter" ng-options="character as character.name for character in dialogVm.characters | filter: dialogVm.filterCharacters | orderBy: 'name'" ng-change="dialogVm.dropdownChanged('Character')"></select>
-        -- OR --
+        <span ng-show="dialogVm.characters.length">
+          Character: <select ng-model="dialogVm.selectedCharacter" ng-options="character as character.name for character in dialogVm.characters | orderBy: 'name' " ng-change="dialogVm.dropdownChanged('Character')"></select>
+          -- OR --
+        </span>
         Monster: <select ng-model="dialogVm.selectedMonster" ng-options="monster as monster.name for monster in dialogVm.monsters" ng-change="dialogVm.dropdownChanged('Monster')"></select>
       </div>
     </md-dialog-content>
