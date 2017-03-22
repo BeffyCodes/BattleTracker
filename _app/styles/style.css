@@ -1,0 +1,11 @@
+div#battleMapBackground {
+    background-color: black;
+}
+
+md-grid-tile {
+    color: white;
+}
+
+md-grid-tile.selected {
+    opacity: .5;
+}

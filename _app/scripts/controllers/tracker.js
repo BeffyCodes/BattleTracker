@@ -1,8 +1,8 @@
 define(['./controllers'], function (controllersModule) {
-    controllersModule.controller("TrackerCtrl", ['DataAccessService', '$mdDialog', 'campaign', 'allMonsters', function(dataAccess, $mdDialog, campaign, allMonsters) {
-    	var vm = this;
+    controllersModule.controller("TrackerCtrl", ['DataAccessService', '$mdDialog', 'campaign', 'allMonsters', function (dataAccess, $mdDialog, campaign, allMonsters) {
+        var vm = this;
 
-    	// Variables
+        // Variables
 
         vm.battleMap = [];
         vm.rows = 5;
@@ -10,8 +10,9 @@ define(['./controllers'], function (controllersModule) {
         vm.campaign = campaign;
         vm.monsters = allMonsters.filter(function (monster) { return monster.edition === vm.campaign.edition });
         vm.charactersOnMap = [];
+        var selectedCell = null;
 
-    	// Functions
+        // Functions
 
         // Public Functions
 
@@ -22,6 +23,7 @@ define(['./controllers'], function (controllersModule) {
                     vm.battleMap.push({
                         x: j,
                         y: i,
+                        selected: false,
                         occupied: false,
                         resident: {}
                     });
@@ -30,17 +32,18 @@ define(['./controllers'], function (controllersModule) {
         };
 
         vm.cellSelected = function (cell) {
-            cell.occupied ? creatureSelected(cell) : emptyCellSelected(cell);
-            
+            if (cell.occupied) {
+                creatureSelected(cell)
+            } else if (!selectedCell) {
+                addCreature(cell);
+            } else {
+                moveCreature(cell);
+            }
         };
 
         // Private Functions
 
-        function creatureSelected (cell) {
-            console.log(cell.resident);
-        };
-
-        function emptyCellSelected (cell) {
+        function addCreature(cell) {
             $mdDialog.show({
                 controller: EmptyCellDialogCtrl,
                 controllerAs: 'dialogVm',
@@ -52,17 +55,34 @@ define(['./controllers'], function (controllersModule) {
                 clickOutsideToClose: true,
                 parent: angular.element(document.body)
             })
-            .then(function (selectedCreature) {
-                cell.occupied = true;
-                cell.resident = selectedCreature;
-            }, function () {
-                console.log('You cancelled the dialog.');
-            });
+                .then(function (selectedCreature) {
+                    cell.occupied = true;
+                    cell.resident = selectedCreature;
+                }, function () {
+                    console.log('You cancelled the dialog.');
+                });
+        };
+
+        function moveCreature(cell) {
+            cell.resident = selectedCell.resident;
+            cell.occupied = true;
+            selectedCell.resident = {};
+            selectedCell.occupied = false;
+            selectedCell.selected = false;
+            selectedCell = null;
+        };
+
+        function creatureSelected(cell) {
+            if (selectedCell) {
+                selectedCell.selected = false;
+            }
+            cell.selected = true;
+            selectedCell = cell;
         };
 
         // Dialog Controllers
 
-        function EmptyCellDialogCtrl ($mdDialog, characters, monsters) {
+        function EmptyCellDialogCtrl($mdDialog, characters, monsters) {
             var dialogVm = this;
 
             // Variables
@@ -88,10 +108,11 @@ define(['./controllers'], function (controllersModule) {
                     dialogVm.cancel();
                 }
                 else if (angular.equals(dialogVm.selectedCharacter, {})) {
+                    dialogVm.selectedMonster.isGood = false;
                     $mdDialog.hide(dialogVm.selectedMonster, "Monster");
                 } else {
-                    console.log(dialogVm.selectedCharacter);
                     dialogVm.selectedCharacter.onMap = true;
+                    dialogVm.selectedCharacter.isGood = true;
                     $mdDialog.hide(dialogVm.selectedCharacter, "Character");
                 }
             };
