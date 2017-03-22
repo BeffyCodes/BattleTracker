@@ -3,12 +3,11 @@
 		<md-grid-tile ng-repeat="cell in vm.battleMap" ng-style="{'background-color': cell.occupied ? (cell.resident.isGood ? 'darkgreen' : 'darkred') :'white'}"
 			ng-click="vm.cellSelected(cell)">
 			{{cell.occupied ? cell.resident.name : ""}}
-			<!--<md-grid-tile-header>
-				<h3>This is a header</h3>
-			</md-grid-tile-header>-->
-			<md-grid-tile-footer ng-show="cell.selected">
-				<h3>Selected</h3>
-			</md-grid-tile-footer>
+			<md-grid-tile-header ng-show="cell.selected">
+				<div class="gridHeaderRight">
+					<i class="material-icons pointer" ng-click="vm.clearCell(cell, $event)">clear</i>
+				</div>
+			</md-grid-tile-header>
 		</md-grid-tile>
 	</md-grid-list>
 </div>

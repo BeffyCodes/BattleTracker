@@ -41,6 +41,15 @@ define(['./controllers'], function (controllersModule) {
             }
         };
 
+        vm.clearCell = function (cell, ev) {
+            cell.resident.onMap = false;
+            cell.resident = {};
+            cell.occupied = false;
+            selectedCell.selected = false;
+            selectedCell = null;
+            ev.stopPropagation();
+        };
+
         // Private Functions
 
         function addCreature(cell) {
@@ -87,7 +96,9 @@ define(['./controllers'], function (controllersModule) {
 
             // Variables
 
-            dialogVm.characters = characters;
+            dialogVm.characters = characters.filter(function(character, index) {
+                return !character.onMap;
+            });
             dialogVm.monsters = monsters;
             dialogVm.selectedCharacter = {};
             dialogVm.selectedMonster = {};
@@ -98,10 +109,6 @@ define(['./controllers'], function (controllersModule) {
             dialogVm.dropdownChanged = function (dropdown) {
                 dropdown === "Character" ? dialogVm.selectedMonster = {} : dialogVm.selectedCharacter = {};
             };
-
-            dialogVm.filterCharacters = function (character) {
-                return !character.onMap;
-            }
 
             dialogVm.save = function () {
                 if (angular.equals(dialogVm.selectedCharacter, {}) && angular.equals(dialogVm.selectedMonster, {})) {

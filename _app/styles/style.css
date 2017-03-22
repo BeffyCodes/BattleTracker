@@ -2,10 +2,21 @@ div#battleMapBackground {
     background-color: black;
 }
 
+div.gridHeaderRight {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 5px;
+}
+
 md-grid-tile {
     color: white;
 }
 
 md-grid-tile.selected {
     opacity: .5;
+}
+
+.pointer {
+    cursor: pointer;
 }
