@@ -10,7 +10,7 @@ define(['./controllers'], function (controllersModule) {
         vm.campaign = campaign;
         vm.monsters = allMonsters.filter(function (monster) { return monster.edition === vm.campaign.edition });
         vm.charactersOnMap = [];
-        var selectedCell = null;
+        vm.selectedCell = null;
 
         // Functions
 
@@ -34,7 +34,7 @@ define(['./controllers'], function (controllersModule) {
         vm.cellSelected = function (cell) {
             if (cell.occupied) {
                 creatureSelected(cell)
-            } else if (!selectedCell) {
+            } else if (!vm.selectedCell) {
                 addCreature(cell);
             } else {
                 moveCreature(cell);
@@ -45,9 +45,15 @@ define(['./controllers'], function (controllersModule) {
             cell.resident.onMap = false;
             cell.resident = {};
             cell.occupied = false;
-            selectedCell.selected = false;
-            selectedCell = null;
+            vm.selectedCell.selected = false;
+            vm.selectedCell = null;
             ev.stopPropagation();
+        };
+
+        vm.endTurn = function () {
+            vm.selectedCell.resident.majorAction = true;
+            vm.selectedCell.resident.minorAction = true;
+            vm.selectedCell.resident.moveAction = true;
         };
 
         // Private Functions
@@ -73,20 +79,20 @@ define(['./controllers'], function (controllersModule) {
         };
 
         function moveCreature(cell) {
-            cell.resident = selectedCell.resident;
+            cell.resident = vm.selectedCell.resident;
             cell.occupied = true;
-            selectedCell.resident = {};
-            selectedCell.occupied = false;
-            selectedCell.selected = false;
-            selectedCell = null;
+            vm.selectedCell.resident = {};
+            vm.selectedCell.occupied = false;
+            vm.selectedCell.selected = false;
+            vm.selectedCell = null;
         };
 
         function creatureSelected(cell) {
-            if (selectedCell) {
-                selectedCell.selected = false;
+            if (vm.selectedCell) {
+                vm.selectedCell.selected = false;
             }
             cell.selected = true;
-            selectedCell = cell;
+            vm.selectedCell = cell;
         };
 
         // Dialog Controllers
@@ -120,6 +126,12 @@ define(['./controllers'], function (controllersModule) {
                 } else {
                     dialogVm.selectedCharacter.onMap = true;
                     dialogVm.selectedCharacter.isGood = true;
+                    if (dialogVm.selectedCharacter.edition == 4) {
+                        dialogVm.selectedCharacter.bloodiedValue = Math.floor(dialogVm.selectedCharacter.hp / 2);
+                    }
+                    dialogVm.selectedCharacter.majorAction = true;
+                    dialogVm.selectedCharacter.minorAction = true;
+                    dialogVm.selectedCharacter.moveAction = true;
                     $mdDialog.hide(dialogVm.selectedCharacter, "Character");
                 }
             };

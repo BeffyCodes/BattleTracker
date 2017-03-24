@@ -1,13 +1,48 @@
+<div id="selectedCharacterOptions">
+	<div id="characterPane" ng-show="vm.selectedCell">
+		<label>Name:</label> {{vm.selectedCell.resident.name}} ({{vm.selectedCell.resident.playerName}})
+		<label style="padding-left: 10px">Race:</label>{{vm.selectedCell.resident.race}}
+		<label style="padding-left: 10px">Class:</label> {{vm.selectedCell.resident.class}}
+		<div ng-if="vm.campaign.edition == 5">
+			<label>AC:</label> {{vm.selectedCell.resident.ac}}
+		</div>
+		<div ng-if="vm.campaign.edition == 4">
+			<label>AC:</label> {{vm.selectedCell.resident.ac}}
+			<label style="padding-left: 10px">Fort:</label>{{vm.selectedCell.resident.fort}}
+			<label style="padding-left: 10px">Reflex:</label> {{vm.selectedCell.resident.reflex}}
+			<label style="padding-left: 10px">Will:</label> {{vm.selectedCell.resident.will}}
+		</div>
+		<label>HP:</label> {{vm.selectedCell.resident.currHP != undefined ? vm.selectedCell.resident.curHP : vm.selectedCell.resident.hp}} / {{vm.selectedCell.resident.hp}}
+		<span ng-if="vm.campaign.edition == 4">(Bloodied Value: {{ (vm.selectedCell.resident.bloodiedValue) }})</span>
+		<br/>
+		<label>Speed:</label> {{vm.selectedCell.resident.speed }}
+		</br>
+	</div>
+	<div id="actionPane" ng-show="vm.selectedCell">
+		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.majorAction ? 1 : .1}">
+			<span >{{ vm.campaign.edition == 4 ? "Standard" : "Major"}} Action</span>
+			<input type="button" ng-click="vm.selectedCell.resident.majorAction = !vm.selectedCell.resident.majorAction" value="Use" style="position: absolute; bottom: 0;" ng-disabled="!vm.selectedCell.resident.majorAction"/>
+		</div>
+		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.minorAction ? 1 : .1}">
+			<span >{{ vm.campaign.edition == 4 ? "Minor" : "Bonus"}} Action</span>
+			<input type="button" ng-click="vm.selectedCell.resident.minorAction = !vm.selectedCell.resident.minorAction" value="Use" style="position: absolute; bottom: 0;" ng-disabled="!vm.selectedCell.resident.minorAction"/>
+		</div>
+		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.moveAction ? 1 : .1}">
+			<span >Move Action</span>
+			<input type="button" ng-click="vm.selectedCell.resident.moveAction = !vm.selectedCell.resident.moveAction" value="Use" style="position: absolute; bottom: 0;" ng-disabled="!vm.selectedCell.resident.moveAction"/>
+		</div>
+	</div>
+	<input ng-show="vm.selectedCell" type="button" ng-click="vm.endTurn()" value="End Selected Creature's Turn" style="position: absolute; bottom: 0; right:0; margin-right: 1px; margin-bottom: 1px"/>
+</div>
+
 <div id="battleMapBackground">
 	<md-grid-list md-cols="{{vm.columns}}" md-row-height="1:.5" ng-show="vm.rows && vm.columns">
 		<md-grid-tile ng-repeat="cell in vm.battleMap" ng-style="{'background-color': cell.occupied ? (cell.resident.isGood ? 'darkgreen' : 'darkred') :'white'}"
-			ng-click="vm.cellSelected(cell)">
+		 ng-click="vm.cellSelected(cell)">
 			{{cell.occupied ? cell.resident.name : ""}}
-			<md-grid-tile-header ng-show="cell.selected">
-				<div class="gridHeaderRight">
+				<div class="gridHeaderRight" ng-show="cell.selected">
 					<i class="material-icons pointer" ng-click="vm.clearCell(cell, $event)">clear</i>
 				</div>
-			</md-grid-tile-header>
 		</md-grid-tile>
 	</md-grid-list>
 </div>
