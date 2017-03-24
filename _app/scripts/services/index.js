@@ -1,3 +1,3 @@
 define([
-    './dataAccess'
+    'services/dataAccess'
 ], function () {});
