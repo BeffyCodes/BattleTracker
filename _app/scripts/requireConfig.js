@@ -5,6 +5,7 @@ requirejs.config({
     "paths": {
         //"text": "lib/requirejs/text",
         "controllers": "controllers",
+        "dialogs": "controllers/dialogs",
         "directives": "directives",
         "filters": "filters",
         "services": "services",
