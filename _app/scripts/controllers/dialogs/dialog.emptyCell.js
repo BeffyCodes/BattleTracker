@@ -14,6 +14,8 @@ define(['controllers/controllers'], function (controllersModule) {
 
         // Functions
 
+        // Public Funtions
+
         dialogVm.dropdownChanged = function (dropdown) {
             dropdown === "Character" ? dialogVm.selectedMonster = {} : dialogVm.selectedCharacter = {};
         };
@@ -26,14 +28,7 @@ define(['controllers/controllers'], function (controllersModule) {
                 dialogVm.selectedMonster.isGood = false;
                 $mdDialog.hide(dialogVm.selectedMonster, "Monster");
             } else {
-                dialogVm.selectedCharacter.onMap = true;
-                dialogVm.selectedCharacter.isGood = true;
-                if (dialogVm.selectedCharacter.edition == 4) {
-                    dialogVm.selectedCharacter.bloodiedValue = Math.floor(dialogVm.selectedCharacter.hp / 2);
-                }
-                dialogVm.selectedCharacter.majorAction = true;
-                dialogVm.selectedCharacter.minorAction = true;
-                dialogVm.selectedCharacter.moveAction = true;
+                prepCharacter(dialogVm.selectedCharacter);
                 $mdDialog.hide(dialogVm.selectedCharacter, "Character");
             }
         };
@@ -41,5 +36,18 @@ define(['controllers/controllers'], function (controllersModule) {
         dialogVm.cancel = function () {
             $mdDialog.cancel();
         };
+
+        // Private Funtions
+
+        function prepCharacter(c) {
+            c.onMap = true;
+            c.isGood = true;
+            if (c.edition == 4) {
+                c.bloodiedValue = Math.floor(c.hp / 2);
+            }
+            c.majorAction = true;
+            c.minorAction = true;
+            c.moveAction = true;
+        }
     });
 });
