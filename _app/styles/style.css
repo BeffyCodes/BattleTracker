@@ -21,30 +21,25 @@ md-grid-tile.selected {
     cursor: pointer;
 }
 
-div#selectedCharacterOptions {
-    text-align: center;
-    height: 110px;
-    /*border: 1px solid red;*/
-    position: relative;
+div#characterPane {
+    /*border: 1px solid green;*/
 }
 
-div#characterPane {
-    position: absolute;
-    left: 0;
-    text-align: left;
-    width: 30%;
-    padding-left: 5px;
-    /*border: 1px solid green;*/
+div#actionPane {
+    /*border: 1px solid red;*/
+}
+
+div#endPane {
+    /*border: 1px solid blue;*/
+}
+
+span#ongoing {
+    font-weight: bold;
+    color: red;
 }
 
 div.actionBox {
     border: 1px solid black;
-    position: relative;
-    display: inline-block;
-    height: 109px;
-    width: 220px;
-    margin: 0 auto;
-    text-align: center;
     background-color: darkgrey;
 }
 

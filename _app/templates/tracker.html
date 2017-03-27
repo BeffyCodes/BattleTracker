@@ -1,5 +1,5 @@
-<div id="selectedCharacterOptions">
-	<div id="characterPane" ng-show="vm.selectedCell">
+<div id="selectedCharacterOptions" layout="row" layout-align="start stretched">
+	<div id="characterPane" ng-show="vm.selectedCell" flex="30">
 		<label>Name:</label> {{vm.selectedCell.resident.name}} ({{vm.selectedCell.resident.playerName}})
 		<label style="padding-left: 10px">Race:</label>{{vm.selectedCell.resident.race}}
 		<label style="padding-left: 10px">Class:</label> {{vm.selectedCell.resident.class}}
@@ -18,28 +18,37 @@
 		<label>Speed:</label> {{vm.selectedCell.resident.speed }}
 		</br>
 	</div>
-	<div id="actionPane" ng-show="vm.selectedCell">
-		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.majorAction ? 1 : .1}">
+	<div id="actionPane" ng-show="vm.selectedCell" flex="40" layout="row" layout-align="space-around stretch">
+		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.majorAction ? 1 : .1}" layout="column" layout-align="space-between center" flex>
 			<span >{{ vm.campaign.edition == 4 ? "Standard" : "Major"}} Action</span>
-			<input type="button" ng-click="vm.selectedCell.resident.majorAction = !vm.selectedCell.resident.majorAction" value="Use" style="position: absolute; bottom: 0;" ng-disabled="!vm.selectedCell.resident.majorAction"/>
+			<input type="button" ng-click="vm.selectedCell.resident.majorAction = !vm.selectedCell.resident.majorAction" value="Use" ng-disabled="!vm.selectedCell.resident.majorAction"/>
 		</div>
-		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.minorAction ? 1 : .1}">
+		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.minorAction ? 1 : .1}" layout="column" layout-align="space-between center" flex>
 			<span >{{ vm.campaign.edition == 4 ? "Minor" : "Bonus"}} Action</span>
-			<input type="button" ng-click="vm.selectedCell.resident.minorAction = !vm.selectedCell.resident.minorAction" value="Use" style="position: absolute; bottom: 0;" ng-disabled="!vm.selectedCell.resident.minorAction"/>
+			<input type="button" ng-click="vm.selectedCell.resident.minorAction = !vm.selectedCell.resident.minorAction" value="Use" ng-disabled="!vm.selectedCell.resident.minorAction"/>
 		</div>
-		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.moveAction ? 1 : .1}">
+		<div class="actionBox" ng-style="{'opacity': vm.selectedCell.resident.moveAction ? 1 : .1}" layout="column" layout-align="space-between center" flex>
 			<span >Move Action</span>
-			<input type="button" ng-click="vm.selectedCell.resident.moveAction = !vm.selectedCell.resident.moveAction" value="Use" style="position: absolute; bottom: 0;" ng-disabled="!vm.selectedCell.resident.moveAction"/>
+			<input type="button" ng-click="vm.selectedCell.resident.moveAction = !vm.selectedCell.resident.moveAction" value="Use" ng-disabled="!vm.selectedCell.resident.moveAction"/>
 		</div>
 	</div>
-	<input ng-show="vm.selectedCell" type="button" ng-click="vm.endTurn()" value="End Selected Creature's Turn" style="position: absolute; bottom: 0; right:0; margin-right: 1px; margin-bottom: 1px"/>
+	<div id="endPane" ng-show="vm.selectedCell" flex layout="row" layout-align="end end">
+		<div layout="column" layout-align="start start" flex style="/*border: 1px solid green*/">
+			<span id="ongoing" ng-if="vm.selectedCell.resident.ongoing.length" ng-repeat="ongoing in vm.selectedCell.resident.ongoing">
+				{{ ongoing.type }}: {{ ongoing.damage }} <span ng-if="ongoing.saveEnds">(Save Ends)</span>
+			</span>
+		</div>
+		<div layout="column" layout-align="end end" flex style="/*border: 1px solid black*/">
+			<input ng-show="vm.selectedCell" type="button" ng-click="vm.endTurn()" value="End Selected Creature's Turn"/>
+		</div>
+	</div>
 </div>
 
 <div id="battleMapBackground">
 	<md-grid-list md-cols="{{vm.columns}}" md-row-height="1:.5" ng-show="vm.rows && vm.columns">
 		<md-grid-tile ng-repeat="cell in vm.battleMap" ng-style="{'background-color': cell.occupied ? (cell.resident.isGood ? 'darkgreen' : 'darkred') :'white'}"
 		 ng-click="vm.cellSelected(cell)">
-			{{cell.occupied ? cell.resident.name : ""}}
+			{{ cell.occupied ? cell.resident.name : "" }}
 				<div class="gridHeaderRight" ng-show="cell.selected">
 					<i class="material-icons pointer" ng-click="vm.clearCell(cell, $event)">clear</i>
 				</div>

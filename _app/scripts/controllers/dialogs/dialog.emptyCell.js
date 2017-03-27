@@ -48,6 +48,7 @@ define(['controllers/controllers'], function (controllersModule) {
             c.majorAction = true;
             c.minorAction = true;
             c.moveAction = true;
+            c.ongoing = [];
         }
     });
 });
